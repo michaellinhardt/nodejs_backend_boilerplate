@@ -1,0 +1,31 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+    "extends": [
+      "zavatta"
+    ],
+    "rules": {
+      "semi": "warn",
+      "no-tabs": "off",
+      "no-undef": "warn",
+      "no-unused-vars": "warn",
+      "no-inline-comments": "off",
+      "no-console": "off",
+      "id-length": "off",
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "max-len": [
+        "warn",
+        {
+          "code": 100
+        }
+      ],
+      "no-sync": 0,
+      "camelcase": 0
+    }
+  }
