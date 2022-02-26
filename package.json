@@ -24,6 +24,8 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "knex": "^1.0.3",
+    "mysql": "^2.18.1",
     "regenerator-runtime": "^0.13.9"
   }
 }
