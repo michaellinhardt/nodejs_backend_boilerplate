@@ -1,0 +1,29 @@
+{
+  "name": "backend_hashtagmoney",
+  "version": "1.0.0",
+  "description": "Backend HashtagMoney",
+  "main": "src/index.js",
+  "author": "Michael Linhardt",
+  "license": "ISC",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon --ignore ./src/knex --ignore ./src/mocha --ignore ./src/script ./src/index.js --exec babel-node",
+    "build": "rm -rf dist ; npx babel src --out-dir dist --copy-files",
+    "prod": "node dist/src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.10.0",
+    "eslint-config-zavatta": "^6.0.3",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "regenerator-runtime": "^0.13.9"
+  }
+}
