@@ -8,7 +8,7 @@ export const
 		host: '127.0.0.1',
 		user: 'root',
 		password: '23455678',
-		database: 'boilerplate_test',
+		database: 'backend_test',
 		multipleStatements: true,
 		charset: 'utf8mb4',
 		collate: 'utf8mb4_unicode_ci',
