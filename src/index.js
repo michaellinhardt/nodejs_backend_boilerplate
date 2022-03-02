@@ -1,5 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-import regeneratorRuntime from 'regenerator-runtime'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 
 import express from 'express'
 

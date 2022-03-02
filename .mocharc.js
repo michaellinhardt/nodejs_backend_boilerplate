@@ -7,7 +7,8 @@ module.exports = {
     require: [
         'env-test',
         '@babel/register',
-        '@babel/polyfill',
+        'core-js/stable',
+        'regenerator-runtime/runtime',
     ],
 
     global: [
