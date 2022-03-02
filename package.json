@@ -6,10 +6,10 @@
   "author": "Michael Linhardt",
   "license": "ISC",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --ignore ./src/knex --ignore ./src/mocha --ignore ./src/script ./src/index.js --exec babel-node",
+    "start": "NODE_ENV=development npx nodemon --ignore ./src/knex --ignore ./src/mocha --ignore ./src/script ./src/index.js --exec babel-node",
     "build": "rm -rf dist ; npx babel src --out-dir dist --copy-files",
     "prod": "node dist/src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test npx mocha --recursive ./src/mocha/tests"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -19,15 +19,25 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.0",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "deep-equal-in-any-order": "^1.1.15",
+    "env-test": "^1.0.0",
     "escope": "^3.6.0",
     "eslint": "^8.10.0",
     "eslint-config-zavatta": "^6.0.3",
-    "nodemon": "^2.0.15"
+    "eslint-plugin-mocha": "^10.0.3",
+    "mocha": "^9.2.1",
+    "nodemon": "^2.0.15",
+    "prettyjson": "^1.2.5"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
     "knex": "^1.0.3",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
-    "regenerator-runtime": "^0.13.9"
+    "regenerator-runtime": "^0.13.9",
+    "uuid": "^8.3.2"
   }
 }

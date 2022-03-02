@@ -4,29 +4,36 @@
     "es2021": true,
     "node": true
   },
-    "extends": [
-      "zavatta"
+  "plugins": [
+    "mocha"
+  ],
+  "extends": [
+    "zavatta",
+    "plugin:mocha/recommended"
+  ],
+  "rules": {
+    "mocha/no-top-level-hooks": "off",
+    "mocha/no-mocha-arrows": "off",
+    "mocha/no-exports": "off",
+    "curly": "off",
+    "semi": "warn",
+    "no-tabs": "off",
+    "no-undef": "warn",
+    "no-unused-vars": "warn",
+    "no-inline-comments": "off",
+    "no-console": "off",
+    "id-length": "off",
+    "indent": [
+      "error",
+      "tab"
     ],
-    "rules": {
-      "curly": "off",
-      "semi": "warn",
-      "no-tabs": "off",
-      "no-undef": "warn",
-      "no-unused-vars": "warn",
-      "no-inline-comments": "off",
-      "no-console": "off",
-      "id-length": "off",
-      "indent": [
-        "error",
-        "tab"
-      ],
-      "max-len": [
-        "warn",
-        {
-          "code": 100
-        }
-      ],
-      "no-sync": 0,
-      "camelcase": 0
-    }
+    "max-len": [
+      "warn",
+      {
+        "code": 100
+      }
+    ],
+    "no-sync": 0,
+    "camelcase": 0
   }
+}
