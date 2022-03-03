@@ -2,13 +2,13 @@
   "name": "backend_hashtagmoney",
   "version": "1.0.0",
   "description": "Backend HashtagMoney",
-  "main": "src/index.js",
+  "main": "src/application/index.js",
   "author": "Michael Linhardt",
   "license": "ISC",
   "scripts": {
-    "start": "NODE_ENV=development npx nodemon --ignore ./src/knex --ignore ./src/mocha --ignore ./src/script ./src/index.js --exec babel-node",
+    "start": "NODE_ENV=development npx nodemon --ignore ./src/application/knex --ignore ./src/application/mocha --ignore ./src/application/script ./src/application/index.js --exec babel-node",
     "build": "rm -rf dist ; npx babel src --out-dir dist --copy-files",
-    "prod": "node dist/src/index.js",
+    "prod": "node dist/src/application/index.js",
     "test": "NODE_ENV=test npx mocha --recursive ./src/application/mocha/tests"
   },
   "devDependencies": {
