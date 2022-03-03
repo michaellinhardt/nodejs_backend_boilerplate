@@ -16,7 +16,7 @@ describe('Import express and use tests routes', () => {
 
 	it('Routes GET /mocha/get/404', async () => {
 		await h.chai.get(404, '/mocha/get/404').send()
-		h.expect(global.response.body).to.deep.equal({ error_key: '404' })
+		h.expect(global.response.body).to.deep.equal({ error_key: 'notFound' })
 	})
 
 	it('Routes GET /mocha/get/200', async () => {
@@ -37,6 +37,11 @@ describe('Import express and use tests routes', () => {
 	it('Routes DEL /mocha/del/204', async () => {
 		await h.chai.del(204, '/mocha/del/204').send()
 		h.expect(global.response.body).to.deep.equal({})
+	})
+
+	it('Routes GET /mocha/get/403', async () => {
+		await h.chai.get(403, '/mocha/get/403').send()
+		h.expect(global.response.body).to.deep.equal({ error_key: 'unauthorized' })
 	})
 
 })
