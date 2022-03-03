@@ -12,6 +12,7 @@
     "plugin:mocha/recommended"
   ],
   "rules": {
+    "mocha/max-top-level-suites": "off",
     "mocha/no-top-level-hooks": "off",
     "mocha/no-mocha-arrows": "off",
     "mocha/no-exports": "off",

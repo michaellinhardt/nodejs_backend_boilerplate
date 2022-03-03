@@ -1,5 +1,5 @@
 import Knex from 'knex'
-import * as config from '../config/_index'
+import * as config from '../../config/_index'
 
 let knexInstance = null
 const { knex: knexConfig, mysql } = config[process.env.NODE_ENV]

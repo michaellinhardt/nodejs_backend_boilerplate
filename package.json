@@ -9,7 +9,7 @@
     "start": "NODE_ENV=development npx nodemon --ignore ./src/knex --ignore ./src/mocha --ignore ./src/script ./src/index.js --exec babel-node",
     "build": "rm -rf dist ; npx babel src --out-dir dist --copy-files",
     "prod": "node dist/src/index.js",
-    "test": "NODE_ENV=test npx mocha --recursive ./src/mocha/tests"
+    "test": "NODE_ENV=test npx mocha --recursive ./src/application/mocha/tests"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",

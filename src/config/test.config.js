@@ -1,5 +1,7 @@
 export const
 
+	port = 4242,
+
 	mysql = {
 		host: '127.0.0.1',
 		user: 'root',
@@ -22,6 +24,6 @@ export const
 		},
 		pool: { min: 0, max: 7 },
 		migrations: {
-			directory: `${__dirname}/../knex/migrations`,
+			directory: `${__dirname}/../application/knex/migrations`,
 		},
 	}

@@ -6,7 +6,7 @@ h.tools.printCurrentTestFile(__filename)
 describe('Import express and use tests routes', () => {
 
 	it('Importing express instance from entry point', () => {
-		const { expressInstance } = require('../../../index')
+		const { expressInstance } = require('../../../../index')
 
 		const stringifyExpressFunctionUse = express().use.toString()
 		const stringifyAppFunctionUse = expressInstance.use.toString()

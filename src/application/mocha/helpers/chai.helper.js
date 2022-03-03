@@ -1,7 +1,7 @@
 import Chai from 'chai'
 import chaiHttp from 'chai-http'
 import deepEqualInAnyOrder from 'deep-equal-in-any-order'
-import { expressInstance } from '../../index'
+import { expressInstance } from '../../../index'
 
 const chai = Chai.use(chaiHttp)
 chai.use(deepEqualInAnyOrder)
