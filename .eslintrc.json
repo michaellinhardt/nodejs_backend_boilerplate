@@ -7,6 +7,9 @@
   "plugins": [
     "mocha"
   ],
+  "globals": {
+    "PUBLIC": true
+  },
   "extends": [
     "zavatta",
     "plugin:mocha/recommended"
