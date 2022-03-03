@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import Knex from 'knex'
-import * as config from '../../../../config/_index'
+import * as config from '../../../config/_index'
 import * as h from '../../helpers/_index'
 import * as knexHelper from '../../../helpers/knex.helper'
 import * as knexSeeds from '../../../knex/seeds'

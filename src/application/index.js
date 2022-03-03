@@ -3,7 +3,7 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import express from 'express'
 
-import * as config from '../config/_index'
+import * as config from './config/_index'
 const { port } = config[process.env.NODE_ENV]
 
 const ExpressServer = new (class {

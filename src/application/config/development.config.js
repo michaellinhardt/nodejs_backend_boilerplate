@@ -6,7 +6,7 @@ export const
 		host: '127.0.0.1',
 		user: 'root',
 		password: '23455678',
-		database: 'backend_prod',
+		database: 'backend_dev',
 		multipleStatements: true,
 		charset: 'utf8mb4',
 		collate: 'utf8mb4_unicode_ci',
@@ -24,6 +24,6 @@ export const
 		},
 		pool: { min: 0, max: 7 },
 		migrations: {
-			directory: `${__dirname}/../application/knex/migrations`,
+			directory: `${__dirname}/../knex/migrations`,
 		},
 	}
