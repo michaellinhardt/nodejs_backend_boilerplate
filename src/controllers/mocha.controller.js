@@ -15,6 +15,11 @@ export const MochaController
 	return this.render(202)
 
 }],
+[{ PATCH: '/mocha/patch/202', PUBLIC }, function () {
+	this.payload.patch = 'mocha'
+	return this.render(202)
+
+}],
 [{ DEL: '/mocha/del/204', PUBLIC }, function () {
 	return this.render(204)
 

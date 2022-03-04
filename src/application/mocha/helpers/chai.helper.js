@@ -16,6 +16,7 @@ export const
 	del = (status, path, jwtoken = null) => emitHttpRequest('delete', status, path, jwtoken),
 	post = (status, path, jwtoken = null) => emitHttpRequest('post', status, path, jwtoken),
 	put = (status, path, jwtoken = null) => emitHttpRequest('put', status, path, jwtoken),
+	patch = (status, path, jwtoken = null) => emitHttpRequest('patch', status, path, jwtoken),
 	get = (status, path, jwtoken = null) => emitHttpRequest('get', status, path, jwtoken)
 
 const emitHttpRequest = (method, status, path, jwtoken) => {

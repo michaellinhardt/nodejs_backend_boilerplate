@@ -34,6 +34,11 @@ describe('Import express and use tests routes', () => {
 		h.expect(global.response.body).to.deep.equal({ put: 'mocha' })
 	})
 
+	it('Routes PATCH /mocha/patch/202', async () => {
+		await h.chai.patch(202, '/mocha/patch/202').send()
+		h.expect(global.response.body).to.deep.equal({ patch: 'mocha' })
+	})
+
 	it('Routes DEL /mocha/del/204', async () => {
 		await h.chai.del(204, '/mocha/del/204').send()
 		h.expect(global.response.body).to.deep.equal({})

@@ -26,14 +26,14 @@ const ExpressServer = new (class {
 	setupAllRoute () {
 		this.router = express.Router()
 
-		const setupE404ControllerAtTheEnd = controllers.E404Controller[0]
+		const setupE404ControllerLast = controllers.E404Controller[0]
 
 		_.forEach(controllers, (arrayOfRoutes, controllerName) => {
 			if (controllerName !== 'E404Controller')
 				_.forEach(arrayOfRoutes, this.setupOneRoute.bind(this))
 		})
 
-		this.setupOneRoute(setupE404ControllerAtTheEnd)
+		this.setupOneRoute(setupE404ControllerLast)
 
 		this.expressInstance.use('/', this.router)
 	}
@@ -57,8 +57,9 @@ const ExpressServer = new (class {
 		else if (routeParam.POST) return ['post', routeParam.POST]
 		else if (routeParam.PUT) return ['put', routeParam.PUT]
 		else if (routeParam.DEL) return ['delete', routeParam.DEL]
+		else if (routeParam.PATCH) return ['patch', routeParam.PATCH]
 
-		throw new Error('Route method should be GET, POST, PUT or DEL')
+		throw new Error('Route method should be GET, POST, PUT, PATCH or DEL')
 	}
 
 	startListening () {

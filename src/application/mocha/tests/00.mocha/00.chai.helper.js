@@ -18,6 +18,9 @@ describe('Testing http agent', () => {
 		expressInstance.put('/', (req, res) =>
 			res.status(202).json({ hello: 'world' }))
 
+		expressInstance.patch('/', (req, res) =>
+			res.status(202).json({ hello: 'world' }))
+
 		expressInstance.delete('/', (req, res) =>
 			res.status(203).json({ hello: 'world' }))
 
@@ -53,6 +56,11 @@ describe('Testing http agent', () => {
 	it('h.chai.post "/", check status', async () => {
 		await h.chai.post(201, '/').send()
 		h.expect(global.response).to.have.status(201)
+	})
+
+	it('h.chai.patch "/", check status', async () => {
+		await h.chai.patch(202, '/').send()
+		h.expect(global.response).to.have.status(202)
 	})
 
 	it('h.chai.put "/", check status', async () => {
