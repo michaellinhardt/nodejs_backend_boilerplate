@@ -8,7 +8,14 @@
     "mocha"
   ],
   "globals": {
-    "PUBLIC": true
+    "PUBLIC": true,
+    "MS_SECOND": true,
+    "MS_MINUTE": true,
+    "MS_HOUR": true,
+    "MS_DAY": true,
+    "MS_WEEK": true,
+    "MS_MONTH": true,
+    "MS_YEAR": true
   },
   "extends": [
     "zavatta",
