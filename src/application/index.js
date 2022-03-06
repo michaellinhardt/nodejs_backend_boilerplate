@@ -6,12 +6,14 @@ import _ from 'lodash'
 import * as config from './config/_index'
 
 import * as controllers from '../controllers/_index'
+import * as middlewares from '../application/middlewares/_index'
 import { ControllerSuperclass } from './superclass/controller.superclass'
 
 const ExpressServer = new (class {
 
 	constructor () {
 		this.setupInstance()
+		this.setupMiddlewares()
 		this.setupAllRoute()
 		this.startListening()
 	}
@@ -20,6 +22,12 @@ const ExpressServer = new (class {
 		this.expressInstance = express()
 		this.expressInstance.use(express.json())
 		this.expressInstance.use(express.urlencoded({ extended: false }))
+	}
+
+	setupMiddlewares () {
+		if (config[process.env.NODE_ENV].printHTTPResponse) {
+			this.expressInstance.use('/', middlewares.debug.printHTTPResponse)
+		}
 	}
 
 	setupAllRoute () {
