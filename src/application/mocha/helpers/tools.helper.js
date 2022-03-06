@@ -1,12 +1,3 @@
-// import prettyjson from 'prettyjson'
-// import moment from 'moment'
-// import jsonwebtoken from 'jsonwebtoken'
-// import { v1 as uuid } from 'uuid'
-// import bcrypt from 'bcrypt'
-// import config from '../../config/_index'
-
-// const { encryption: { bcrypt: { saltRound } } } = config
-
 export const
 
 	printCurrentTestFile = filename => {
