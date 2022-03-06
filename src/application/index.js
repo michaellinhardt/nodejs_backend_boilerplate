@@ -7,7 +7,6 @@ import * as config from './config/_index'
 
 import * as controllers from '../controllers/_index'
 import { ControllerSuperclass } from './superclass/controller.superclass'
-const { port } = config[process.env.NODE_ENV]
 
 const ExpressServer = new (class {
 
@@ -63,6 +62,7 @@ const ExpressServer = new (class {
 	}
 
 	startListening () {
+		const { port } = config[process.env.NODE_ENV]
 		this.expressInstance.listen(port, () =>
 			process.stdout.write(
 				`Server is running on port ${port}\r\n`))
