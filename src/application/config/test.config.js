@@ -1,7 +1,7 @@
 export const
 
 	port = 4242,
-	printHTTPResponse = true,
+	printHTTPResponse = false,
 
 	mysql = {
 		host: '127.0.0.1',
