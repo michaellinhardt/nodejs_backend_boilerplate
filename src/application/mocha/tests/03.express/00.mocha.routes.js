@@ -44,8 +44,8 @@ describe('Import express and use tests routes', () => {
 		h.expect(global.response.body).to.deep.equal({})
 	})
 
-	it('Routes GET /mocha/get/403', async () => {
-		await h.chai.get(403, '/mocha/get/403').send()
+	it('Routes GET /mocha/get/401', async () => {
+		await h.chai.get(401, '/mocha/get/401').send()
 		h.expect(global.response.body).to.deep.equal({ error_key: 'unauthorized' })
 	})
 
