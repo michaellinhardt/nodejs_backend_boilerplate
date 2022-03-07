@@ -1,8 +1,9 @@
 import * as config from '../config/_index'
 import * as jose from 'jose'
 import { v1 as uuidv1 } from 'uuid'
-
 import bcrypt from 'bcrypt'
+
+import * as errors from '../helpers/errors.helper'
 
 const { encryption: { jwtoken, bcrypt: { saltRound } } } = config
 
@@ -65,16 +66,12 @@ export const
 
 			if (protectedHeader.alg !== jwtoken.headerAlgorithm
 				|| protectedHeader.enc !== jwtoken.headerEncryption)
-				throw new Error('BAD_HEADER')
+				throw new errors.BadRequest('jwtoken.invalid')
 
 			return payload
 
 		} catch (error) {
-			const errorFromJosePackage = error.code
-			const errorFromHeaderVerif = error.message
-
-			console.log(errorFromJosePackage || errorFromHeaderVerif)
-			return null
+			throw new errors.BadRequest('jwtoken.invalid')
 		}
 	},
 
@@ -92,15 +89,11 @@ export const
 
 			if (protectedHeader.alg !== jwtoken.algorithm
 				|| protectedHeader.typ !== jwtoken.type)
-				throw new Error('BAD_HEADER')
+				throw new errors.BadRequest('jwtoken.invalid')
 
 			return payload.sub
 
 		} catch (error) {
-			const errorFromJosePackage = error.code
-			const errorFromHeaderVerif = error.message
-
-			console.log(errorFromJosePackage || errorFromHeaderVerif)
-			return null
+			throw new errors.BadRequest('jwtoken.invalid')
 		}
 	}
