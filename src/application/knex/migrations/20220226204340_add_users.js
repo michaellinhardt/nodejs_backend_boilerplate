@@ -12,7 +12,7 @@ export const
 			table.unique('user_uuid')
 
 			table.string('username').notNullable()
-			table.text('password').defaultTo('')
+			table.text('password').notNullable()
 
 		}).then(() => {
 			const { users } = require('../seeds')
