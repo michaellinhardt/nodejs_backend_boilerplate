@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import Knex from 'knex'
-import * as config from '../../../config/_index'
-import * as h from '../../helpers/_index'
-import * as knexHelper from '../../../helpers/knex.helper'
-import * as knexSeeds from '../../../knex/seeds'
+import * as config from '../../application/config/_index'
+import * as h from '../../application/mocha/helpers/_index'
+import * as knexHelper from '../../application/helpers/knex.helper'
+import * as knexSeeds from '../../application/knex/seeds'
 import { expect } from 'chai'
 
 h.tools.printCurrentTestFile(__filename)

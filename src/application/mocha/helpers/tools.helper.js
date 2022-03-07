@@ -3,7 +3,7 @@ export const
 	printCurrentTestFile = filename => {
 		const fileArray = filename.split('/')
 		const fileName = fileArray[fileArray.length - 1]
-		const folderArray = filename.split('/mocha')
+		const folderArray = filename.split('/tests')
 		const folderName = folderArray[1].replace(`/${fileName}`, '')
 
 		describe(`\x1b[35m### Folder: ${folderName}\x1b[0m`, () => {

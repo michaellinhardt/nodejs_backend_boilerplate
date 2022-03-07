@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import * as appHelpers from '../../../helpers/_index'
-import * as h from '../../helpers/_index'
-import * as config from '../../../config/_index'
+import * as appHelpers from '../../application/helpers/_index'
+import * as h from '../../application/mocha/helpers/_index'
+import * as config from '../../application/config/_index'
 
 h.tools.printCurrentTestFile(__filename)
 

@@ -1,12 +1,12 @@
 import express from 'express'
-import * as h from '../../helpers/_index'
+import * as h from '../../application/mocha/helpers/_index'
 
 h.tools.printCurrentTestFile(__filename)
 
 describe('Import express and use tests routes', () => {
 
 	it('Importing express instance from entry point', () => {
-		const { expressInstance } = require('../../../index')
+		const { expressInstance } = require('../../application/index')
 
 		const stringifyExpressFunctionUse = express().use.toString()
 		const stringifyAppFunctionUse = expressInstance.use.toString()
