@@ -13,6 +13,8 @@ _.forEach(schemaFiles, schemaFile =>
 
 export const
 
+	addSchema = (schema, name) => ajv.addSchema(schema, name),
+
 	validate = (schemaName, data) => {
 		if (ajv.validate(schemaName, data))
 			return true
