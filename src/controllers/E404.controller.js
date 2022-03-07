@@ -1,7 +1,10 @@
+import { ControllerSuperclass } from '../application/superclass/controller.superclass'
+
 export const E404Controller
 
-= [[{ PUBLIC, GET: '*' }, function () {
-	this.payload.error_key = 'notFound'
-	return this.render(404)
-
+= [[{ PUBLIC, GET: '*' }, class extends ControllerSuperclass {
+	handler () {
+		this.payload.error_key = 'notFound'
+		return this.render(404)
+	}
 }]]

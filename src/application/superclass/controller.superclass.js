@@ -1,10 +1,20 @@
+import * as helpers from '../helpers/_index'
+import * as services from '../../services/_index'
+import * as config from '../config/_index'
+
 export class ControllerSuperclass {
-	constructor ({ handler, validator, req, res }) {
-		this.initializeRessources(req, res)
-		this.initializeExternalMethods(handler, validator)
+	constructor ({ req, res }) {
+		this.initializeData(req, res)
+		this.linkHelpersServicesAndConfig()
 	}
 
-	initializeRessources (req, res) {
+	linkHelpersServicesAndConfig () {
+		this.config = config
+		this.helpers = helpers
+		this.services = services
+	}
+
+	initializeData (req, res) {
 		this.payload = {}
 		this.body = req.body || {}
 		this.params = req.params || {}
@@ -12,10 +22,7 @@ export class ControllerSuperclass {
 		this.res = res
 	}
 
-	initializeExternalMethods (handler, validator) {
-		this.handler = handler.bind(this)
-		this.validator = validator.bind(this)
-	}
+	validator () { return true }
 
 	render (status) { this.res.status(status).send(this.payload) }
 }

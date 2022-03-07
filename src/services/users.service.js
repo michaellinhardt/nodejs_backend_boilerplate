@@ -1,12 +1,8 @@
-import * as models from '../models/_index.js'
+import { ServiceSuperclass } from '../application/superclass/service.superclass.js'
 
-export class UsersService {
-
-	constructor (table) {
-		this.table = table
-	}
+export class UsersService extends ServiceSuperclass {
 
 	getByUsername (username) {
-		return models.users.getFirstWhere({ username })
+		return this.models.users.getFirstWhere({ username })
 	}
 }

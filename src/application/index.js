@@ -8,7 +8,6 @@ import * as config from './config/_index'
 import * as controllers from '../controllers/_index'
 import * as middlewares from '../application/middlewares/_index'
 import * as h from '../application/helpers/_index'
-import { ControllerSuperclass } from './superclass/controller.superclass'
 
 const ExpressServer = new (class {
 
@@ -47,15 +46,15 @@ const ExpressServer = new (class {
 	}
 
 	setupOneRoute (routeElementFromController) {
-		const [routeParam, handler, validator = () => true] = routeElementFromController
+		const [routeParam, RouteController] = routeElementFromController
 		const [routeMethod, routePath] = this.extractRouteMethodAndPath(routeParam)
 
 		this.router[routeMethod](routePath, async (req, res) => {
-			const controller = new ControllerSuperclass({ handler, validator, req, res })
-
-			if (!routeParam.PUBLIC) return res.status(403).send({ error_key: 'unauthorized' })
+			const controller = new RouteController({ req, res })
 
 			try {
+				if (!routeParam.PUBLIC) { throw new h.errors.Unauthorized('unauthorized') }
+
 				await controller.validator()
 				await controller.handler()
 

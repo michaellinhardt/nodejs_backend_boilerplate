@@ -1,14 +1,20 @@
 import _ from 'lodash'
-import { v1 as uuidv1 } from 'uuid'
-import * as h from '../../application/helpers/_index'
+import * as helpers from '../../application/helpers/_index'
+import * as config from '../config/_index'
 
 export class ModelSuperclass {
 
 	constructor (table) {
 		this.table = table
+		this.linkHelpersAndConfig()
 	}
 
-	knex () { return h.knex.getInstance() }
+	linkHelpersAndConfig () {
+		this.config = config
+		this.helpers = helpers
+	}
+
+	knex () { return this.helpers.knex.getInstance() }
 
 	getLastWhere (where) {
 		where.is_deleted = false
@@ -157,7 +163,7 @@ export class ModelSuperclass {
 		return this.knex()
 			.update({
 				is_deleted: true,
-				deleted_at: h.date.timestampSql(),
+				deleted_at: this.helpers.date.timestampSql(),
 			})
 			.where(where)
 	}
@@ -166,20 +172,20 @@ export class ModelSuperclass {
 		return this.knex()
 			.update({
 				is_deleted: true,
-				deleted_at: h.date.timestampSql(),
+				deleted_at: this.helpers.date.timestampSql(),
 			})
 			.whereIn(field, arrayValue)
 			.andWhere({ is_deleted: false })
 	}
 
 	async add (entry = {}) {
-		entry.uuid = uuidv1()
+		entry.uuid = this.helpers.encryption.uuid()
 		await this.knex().insert(entry)
 		return entry
 	}
 
 	async addArray (entries) {
-		entries.forEach(entry => { entry.uuid = uuidv1() })
+		entries.forEach(entry => { entry.uuid = this.helpers.encryption.uuid() })
 		await this.knex().insert(entries)
 		return entries
 	}
