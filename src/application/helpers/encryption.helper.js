@@ -9,6 +9,8 @@ const { encryption: { jwtoken, bcrypt: { saltRound } } } = config
 
 export const
 
+	uuid = uuidv1,
+
 	generateKeyPair = async (algorythm = 'RS512') => {
 		const { publicKey, privateKey } = await jose.generateKeyPair(algorythm)
 		const publicKeyString = publicKey.export({ type: 'pkcs1', format: 'pem' })
