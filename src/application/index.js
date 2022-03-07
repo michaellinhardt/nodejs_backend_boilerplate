@@ -7,6 +7,7 @@ import * as config from './config/_index'
 
 import * as controllers from '../controllers/_index'
 import * as middlewares from '../application/middlewares/_index'
+import * as h from '../application/helpers/_index'
 import { ControllerSuperclass } from './superclass/controller.superclass'
 
 const ExpressServer = new (class {
@@ -54,8 +55,11 @@ const ExpressServer = new (class {
 
 			if (!routeParam.PUBLIC) return res.status(403).send({ error_key: 'unauthorized' })
 
-			await controller.validator()
-			await controller.handler()
+			try {
+				await controller.validator()
+				await controller.handler()
+
+			} catch (error) { h.errors.handler(res, error) }
 		})
 	}
 
