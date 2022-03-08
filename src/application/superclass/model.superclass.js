@@ -14,7 +14,7 @@ export class ModelSuperclass {
 		this.helpers = helpers
 	}
 
-	knex () { return this.helpers.knex.getInstance() }
+	knex () { return this.helpers.knex.getInstance()(this.table) }
 
 	getLastWhere (where) {
 		where.is_deleted = false
