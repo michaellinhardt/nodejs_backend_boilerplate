@@ -3,7 +3,7 @@ import { encryption } from '../../application/helpers/_index'
 
 h.tools.printCurrentTestFile(__filename)
 
-describe('User Sign Up error', () => {
+describe('User Sign Up errors', () => {
 
 	it('Missing encrypted_token in HTTP payload', async () => {
 		await h.chai.post(400, '/user').send()
