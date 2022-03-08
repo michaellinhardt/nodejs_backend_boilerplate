@@ -9,7 +9,7 @@ describe('Testing code helper', () => {
 
 	it('Sleep 100 ms', async () => {
 		const start = Date.now()
-		await code.sleep(100)
+		await code.sleep(105)
 		h.expect(Date.now() - start).to.be.above(99)
 	})
 })
