@@ -6,7 +6,7 @@ export const UserController
 	constructor ({ req, res }) { super({ req, res }) }
 	handler () {
 		this.payload.get = 'mocha'
-		return this.render(200)
+		return this.renders.ok()
 	}
 
 	async validator () {
@@ -23,7 +23,7 @@ export const UserController
 		const isUser = this.services.users.getByUsername(decryptedPayload.username)
 
 		if (isUser)
-			throw new this.helpers.errors.Conflict('username.conflict')
+			return this.renders.conflict('username.conflict')
 	}
 },
 

@@ -53,12 +53,13 @@ const ExpressServer = new (class {
 			const controller = new RouteController({ req, res })
 
 			try {
-				if (!routeParam.PUBLIC) { throw new h.errors.Unauthorized('unauthorized') }
+				if (!routeParam.PUBLIC)
+					return h.renders.unauthorized('unauthorized')
 
 				await controller.validator()
 				await controller.handler()
 
-			} catch (error) { h.errors.handler(res, error) }
+			} catch (error) { h.renders.catchErrorsOrRenders(res, error, controller.payload) }
 		})
 	}
 

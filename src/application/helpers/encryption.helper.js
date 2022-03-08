@@ -3,7 +3,7 @@ import * as jose from 'jose'
 import { v1 as uuidv1 } from 'uuid'
 import bcrypt from 'bcrypt'
 
-import * as errors from '../helpers/errors.helper'
+import * as renders from './renders.helper'
 
 const { encryption: { jwtoken, bcrypt: { saltRound } } } = config
 
@@ -68,13 +68,11 @@ export const
 
 			if (protectedHeader.alg !== jwtoken.headerAlgorithm
 				|| protectedHeader.enc !== jwtoken.headerEncryption)
-				throw new errors.BadRequest('jwtoken.invalid')
+				return renders.badRequest('jwtoken.invalid')
 
 			return payload
 
-		} catch (error) {
-			throw new errors.BadRequest('jwtoken.invalid')
-		}
+		} catch (error) { return renders.badRequest('jwtoken.invalid') }
 	},
 
 	verifyJWT = async (authorisationOrRefresh, token) => {
@@ -91,11 +89,11 @@ export const
 
 			if (protectedHeader.alg !== jwtoken.algorithm
 				|| protectedHeader.typ !== jwtoken.type)
-				throw new errors.BadRequest('jwtoken.invalid')
+				return renders.badRequest('jwtoken.invalid')
 
 			return payload.sub
 
 		} catch (error) {
-			throw new errors.BadRequest('jwtoken.invalid')
+			return renders.badRequest('jwtoken.invalid')
 		}
 	}

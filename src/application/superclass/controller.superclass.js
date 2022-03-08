@@ -6,12 +6,7 @@ export class ControllerSuperclass {
 	constructor ({ req, res }) {
 		this.initializeData(req, res)
 		this.linkHelpersServicesAndConfig()
-	}
-
-	linkHelpersServicesAndConfig () {
-		this.config = config
-		this.helpers = helpers
-		this.services = services
+		this.linkHelperRenders()
 	}
 
 	initializeData (req, res) {
@@ -22,7 +17,13 @@ export class ControllerSuperclass {
 		this.res = res
 	}
 
-	validator () { return true }
+	linkHelpersServicesAndConfig () {
+		this.config = config
+		this.helpers = helpers
+		this.services = services
+	}
 
-	render (status) { this.res.status(status).send(this.payload) }
+	linkHelperRenders () { this.renders = helpers.renders }
+
+	validator () { return true }
 }

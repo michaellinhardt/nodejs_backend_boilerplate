@@ -2,7 +2,7 @@ import Ajv from 'ajv'
 import _ from 'lodash'
 
 import * as schemaFiles from '../../schemas/_index'
-import * as errors from '../helpers/errors.helper'
+import * as renders from './renders.helper'
 
 const ajv = new Ajv({ allErrors: true })
 require('ajv-errors')(ajv)
@@ -21,38 +21,38 @@ export const
 
 		const ajvError = (ajv.errors && ajv.errors[0]) || null
 
-		if (!ajvError) throw errors.BadRequest('invalid.data')
+		if (!ajvError) return renders.badRequest('invalid.data')
 
 		const { keyword, params, message, schemaPath } = ajvError
 
 		if (keyword === 'required') {
 			_.forEach(params, (errorData, errorLabel) => {
-				throw new errors.BadRequest(`${errorData}.${errorLabel}`)
+				return renders.badRequest(`${errorData}.${errorLabel}`)
 			})
 
 		} else if (['minLength', 'maxLength'].includes(keyword)) {
 			const splitSchemaPath = schemaPath.split('/')
 			const errorData = splitSchemaPath[(splitSchemaPath.length - 2)]
-			throw new errors.BadRequest(`${errorData}.${keyword}.${params.limit}`)
+			return renders.badRequest(`${errorData}.${keyword}.${params.limit}`)
 
 		} else if (keyword === 'enum') {
 			const splitSchemaPath = schemaPath.split('/')
 			const errorData = splitSchemaPath[(splitSchemaPath.length - 2)]
-			throw new errors.BadRequest(`invalid.${errorData}`)
+			return renders.badRequest(`invalid.${errorData}`)
 
 		} else if (keyword === 'errorMessage') {
-			throw new errors.BadRequest(message)
+			return renders.badRequest(message)
 		}
 
-		throw new errors.BadRequest('invalid.data')
+		return renders.badRequest('invalid.data')
 	},
 
 	isNotEmpty = (label, value) => {
 		if (value === null || value === undefined || value === '')
-			throw new errors.BadRequest(`${label}.missingProperty`)
+			return renders.badRequest(`${label}.missingProperty`)
 	},
 
 	isJwtoken = (token) => {
 		if (!token.startsWith('Bearer '))
-			throw new errors.BadRequest('jwtoken.invalid')
+			return renders.badRequest('jwtoken.invalid')
 	}

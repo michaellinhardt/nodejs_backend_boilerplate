@@ -4,7 +4,6 @@ export const E404Controller
 
 = [[{ PUBLIC, GET: '*' }, class extends ControllerSuperclass {
 	handler () {
-		this.payload.error_key = 'notFound'
-		return this.render(404)
+		return this.renders.notFound('notFound')
 	}
 }]]
