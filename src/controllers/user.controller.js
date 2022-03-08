@@ -6,7 +6,7 @@ export const UserController
 	constructor ({ req, res }) { super({ req, res }) }
 	handler () {
 		this.payload.get = 'mocha'
-		return this.renders.ok()
+		return this.renders.created()
 	}
 
 	async validator () {
@@ -20,7 +20,7 @@ export const UserController
 
 		this.helpers.ajv.validate('PostUserSchema', decryptedPayload)
 
-		const isUser = this.services.users.getByUsername(decryptedPayload.username)
+		const isUser = await this.services.users.getByUsername(decryptedPayload.username)
 
 		if (isUser)
 			return this.renders.conflict('username.conflict')
