@@ -179,13 +179,12 @@ export class ModelSuperclass {
 	}
 
 	async add (entry = {}) {
-		entry.uuid = this.helpers.encryption.uuid()
 		await this.knex().insert(entry)
 		return entry
 	}
 
 	async addArray (entries) {
-		entries.forEach(entry => { entry.uuid = this.helpers.encryption.uuid() })
+		if (!entries.length) { return entries }
 		await this.knex().insert(entries)
 		return entries
 	}

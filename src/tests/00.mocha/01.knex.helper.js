@@ -23,7 +23,6 @@ describe('Reseting database', () => {
 		expect(userOne).to.have.property('deleted_at')
 		expect(userOne).to.have.property('is_deleted')
 		expect(userOne).to.have.property('updated_at')
-		expect(userOne).to.have.property('uuid')
 		expect(userOne).to.have.property('id')
 		expect(userOne.id).to.be.equal(1)
 		expect(userOne.is_deleted).to.be.equal(0)
