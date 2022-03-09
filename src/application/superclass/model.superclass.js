@@ -16,6 +16,14 @@ export class ModelSuperclass {
 
 	knex () { return this.helpers.knex.getInstance()(this.table) }
 
+	getLast () {
+		return this.knex()
+			.select('*')
+			.where({ is_deleted: false })
+			.orderBy('id', 'desc')
+			.first()
+	}
+
 	getLastWhere (where) {
 		where.is_deleted = false
 		return this.knex()
@@ -31,14 +39,21 @@ export class ModelSuperclass {
 		_.forEach(args, (where, index) => {
 			const method = index > 0 ? 'orWhere' : 'where'
 			request[method]({
-				...where,
 				is_deleted: false,
+				...where,
 			})
 		})
 
 		return request
 			.select('*')
 			.orderBy('id', 'desc')
+			.first()
+	}
+
+	getFirst () {
+		return this.knex()
+			.select('*')
+			.where({ is_deleted: false })
 			.first()
 	}
 
@@ -64,6 +79,12 @@ export class ModelSuperclass {
 		return request
 			.select('*')
 			.first()
+	}
+
+	getAll () {
+		return this.knex()
+			.select('*')
+			.where({ is_deleted: false })
 	}
 
 	getAllFirstWhere (where) {
@@ -142,6 +163,34 @@ export class ModelSuperclass {
 			.whereIn(field, arrayValue)
 			.andWhere({ is_deleted: false })
 			.orderBy('id', 'desc')
+	}
+
+	decrementAllWhere (where, decrements) {
+		where.is_deleted = false
+		return this.knex()
+			.decrement(decrements)
+			.where(where)
+	}
+
+	decrementAllWhereIn (field, arrayValue, decrements) {
+		return this.knex()
+			.decrement(decrements)
+			.whereIn(field, arrayValue)
+			.andWhere({ is_deleted: false })
+	}
+
+	incrementAllWhere (where, increments) {
+		where.is_deleted = false
+		return this.knex()
+			.increment(increments)
+			.where(where)
+	}
+
+	incrementAllWhereIn (field, arrayValue, increments) {
+		return this.knex()
+			.increment(increments)
+			.whereIn(field, arrayValue)
+			.andWhere({ is_deleted: false })
 	}
 
 	updAllWhere (where, update) {
