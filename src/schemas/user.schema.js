@@ -4,7 +4,13 @@ import {
 
 export const
 
-	PostUserSchema = {
+	PostUserSignUpSchema = {
+		type: 'object',
+		properties: { username, password },
+		required: ['username', 'password'],
+	},
+
+	PostUserSignInSchema = {
 		type: 'object',
 		properties: { username, password },
 		required: ['username', 'password'],

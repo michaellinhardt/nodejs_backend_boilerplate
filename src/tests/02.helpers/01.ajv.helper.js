@@ -44,7 +44,7 @@ describe('Testing ajv helper', () => {
 	})
 
 	it('Test validate() with existing schema, username', () => {
-		const shouldThrowFunction = () => ajv.validate('PostUserSchema', {
+		const shouldThrowFunction = () => ajv.validate('PostUserSignUpSchema', {
 			username: 'michael',
 			password: '12',
 		})
@@ -52,7 +52,7 @@ describe('Testing ajv helper', () => {
 	})
 
 	it('Test validate() with existing schema, password', () => {
-		const shouldThrowFunction = () => ajv.validate('PostUserSchema', {
+		const shouldThrowFunction = () => ajv.validate('PostUserSignUpSchema', {
 			username: 'michael',
 			password: '123456789012345678901234567890',
 		})

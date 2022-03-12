@@ -10,6 +10,7 @@ export class ControllerSuperclass {
 	}
 
 	initializeData (req, res) {
+		this.data = {}
 		this.payload = {}
 		this.body = req.body || {}
 		this.params = req.params || {}

@@ -52,7 +52,7 @@ describe('User Sign In errors', () => {
 		const noMatchingUsername = { username: 'TeazMe', password: '12345678' }
 		const { token } = await encryption.encryptJWT(null, noMatchingUsername)
 
-		await h.chai.post(400, '/user/signin')
+		await h.chai.post(401, '/user/signin')
 			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
@@ -65,7 +65,7 @@ describe('User Sign In errors', () => {
 		const missmatchPassword = { username: 'TeazYou', password: '87654321' }
 		const { token } = await encryption.encryptJWT(null, missmatchPassword)
 
-		await h.chai.post(400, '/user/signin')
+		await h.chai.post(401, '/user/signin')
 			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
