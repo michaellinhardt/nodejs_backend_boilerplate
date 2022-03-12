@@ -29,6 +29,7 @@ const ExpressServer = new (class {
 			this.expressInstance.use('/', middlewares.debug.printHTTPResponse)
 		}
 		this.expressInstance.post('/user/signup', middlewares.jwe.decryptJWE)
+		this.expressInstance.post('/user/signin', middlewares.jwe.decryptJWE)
 	}
 
 	setupAllRoute () {
