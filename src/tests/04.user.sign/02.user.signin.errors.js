@@ -4,25 +4,74 @@ import { encryption } from '../../application/helpers/_index'
 h.knex.resetTestDatabase()
 h.tools.printCurrentTestFile(__filename)
 
-const knex = h.knex.getInstance()
-let shared
-
 describe('User Sign In errors', () => {
 
-	it('Registering user with JWT encrypted token', async () => {
-		const signupPayload = { username: 'User1', password: '12345678' }
-		const { token } = await encryption.encryptJWT(null, signupPayload)
+	it('Missing encrypted_token in HTTP payload', async () => {
+		await h.chai.post(400, '/user/signin').send()
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'jwtoken.missingProperty',
+		})
+	})
 
-		await h.chai.post(201, '/user/signin')
+	it('Invalid encrypted_token in HTTP payload', async () => {
+		await h.chai.post(400, '/user/signin')
+			.set('encrypted_token', 'Bearer qwdqwdqwdqwdQWFWQwfqw')
+			.send()
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'jwtoken.invalid',
+		})
+	})
+
+	it('Missing username in encryptedToken', async () => {
+		const noUsernamePayload = { password: '12345678' }
+		const { token } = await encryption.encryptJWT(null, noUsernamePayload)
+
+		await h.chai.post(400, '/user/signin')
 			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
-		h.expect(global.response.body).to.have.property('accessToken')
-		h.expect(global.response.body).to.have.property('refreshToken')
-		h.expect(global.response.body.accessToken).to.be.a('string')
-		h.expect(global.response.body.refreshToken).to.be.a('string')
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'username.missingProperty',
+		})
+	})
 
-		shared = global.response.body
+	it('Missing password in encryptedToken', async () => {
+		const noPasswordPayload = { username: 'TeazYou' }
+		const { token } = await encryption.encryptJWT(null, noPasswordPayload)
+
+		await h.chai.post(400, '/user/signin')
+			.set('encrypted_token', `Bearer ${token}`)
+			.send()
+
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'password.missingProperty',
+		})
+	})
+
+	it('No matching username', async () => {
+		const noMatchingUsername = { username: 'TeazMe', password: '12345678' }
+		const { token } = await encryption.encryptJWT(null, noMatchingUsername)
+
+		await h.chai.post(400, '/user/signin')
+			.set('encrypted_token', `Bearer ${token}`)
+			.send()
+
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'usernameOrPassword.invalid',
+		})
+	})
+
+	it('Missmatch password', async () => {
+		const missmatchPassword = { username: 'TeazYou', password: '87654321' }
+		const { token } = await encryption.encryptJWT(null, missmatchPassword)
+
+		await h.chai.post(400, '/user/signin')
+			.set('encrypted_token', `Bearer ${token}`)
+			.send()
+
+		h.expect(global.response.body).to.deep.equal({
+			error_key: 'usernameOrPassword.invalid',
+		})
 	})
 
 })
