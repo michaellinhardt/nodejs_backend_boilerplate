@@ -1,7 +1,6 @@
 import * as h from '../../application/mocha/helpers/_index'
 import { encryption } from '../../application/helpers/_index'
 
-h.knex.resetTestDatabase()
 h.tools.printCurrentTestFile(__filename)
 
 describe('User Sign Up errors', () => {
