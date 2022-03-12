@@ -1,1 +1,1 @@
-export { expect } from 'chai'
+export { expect, should, assert } from 'chai'

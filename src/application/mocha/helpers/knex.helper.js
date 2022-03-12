@@ -8,6 +8,12 @@ let knex
 
 export const
 
+	getInstance = () => {
+		knexConfig.connection.database = mysql.database
+		knex = Knex(knexConfig)
+		return knex
+	},
+
 	resetTestDatabase = () => {
 
 		describe('\x1b[36m### Reseting Database\x1b[0m', () => {

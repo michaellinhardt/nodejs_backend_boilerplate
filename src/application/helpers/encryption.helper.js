@@ -21,14 +21,14 @@ export const
 	passwordHash = password => bcrypt.hash(password, saltRound),
 	passwordCompare = (pwdToCompare, pwdEncrypted) => bcrypt.compare(pwdToCompare, pwdEncrypted),
 
-	signJWT = (authorisationOrRefresh, userUuidAsSubject, payload = {}) => {
+	signJWT = async (authorisationOrRefresh, userUuidAsSubject, payload = {}) => {
 		const type = authorisationOrRefresh === 'refresh' ? 'refresh' : 'authorisation'
 		const expireTime = Date.now() + jwtoken.expireTimes[type]
 		const tokenUuid = uuidv1()
 		const audience = `${jwtoken.audience}:${type}`
 		const header = { alg: jwtoken.algorithm, typ: jwtoken.type }
 
-		return new jose.SignJWT(payload)
+		const token = await new jose.SignJWT(payload)
 			.setProtectedHeader(header)
 			.setAudience(audience)
 			.setExpirationTime(expireTime)
@@ -37,15 +37,17 @@ export const
 			.setJti(tokenUuid)
 			.setSubject(userUuidAsSubject)
 			.sign(jwtoken.privateKeyObject)
+
+		return { tokenUuid, token }
 	},
 
-	encryptJWT = (userUuidAsSubject, payload = {}) => {
+	encryptJWT = async (userUuidAsSubject, payload = {}) => {
 		const expireTime = Date.now() + jwtoken.expireTimes.encryption
 		const tokenUuid = uuidv1()
 		const audience = `${jwtoken.audience}:encryption`
 		const header = { alg: jwtoken.headerAlgorithm, enc: jwtoken.headerEncryption }
 
-		return new jose.EncryptJWT(payload)
+		const token = await new jose.EncryptJWT(payload)
 			.setProtectedHeader(header)
 			.setAudience(audience)
 			.setExpirationTime(expireTime)
@@ -54,6 +56,8 @@ export const
 			.setJti(tokenUuid)
 			.setSubject(userUuidAsSubject)
 			.encrypt(jwtoken.publicKeyObject)
+
+		return { tokenUuid, token }
 	},
 
 	decryptJWT = async (token) => {

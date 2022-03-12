@@ -28,7 +28,7 @@ const ExpressServer = new (class {
 		if (config[process.env.NODE_ENV].printHTTPResponse) {
 			this.expressInstance.use('/', middlewares.debug.printHTTPResponse)
 		}
-		this.expressInstance.post('/user', middlewares.jwe.decryptJWE)
+		this.expressInstance.post('/user/signup', middlewares.jwe.decryptJWE)
 	}
 
 	setupAllRoute () {

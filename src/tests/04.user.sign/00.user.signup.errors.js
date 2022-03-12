@@ -7,14 +7,14 @@ h.tools.printCurrentTestFile(__filename)
 describe('User Sign Up errors', () => {
 
 	it('Missing encrypted_token in HTTP payload', async () => {
-		await h.chai.post(400, '/user').send()
+		await h.chai.post(400, '/user/signup').send()
 		h.expect(global.response.body).to.deep.equal({
 			error_key: 'jwtoken.missingProperty',
 		})
 	})
 
 	it('Invalid encrypted_token in HTTP payload', async () => {
-		await h.chai.post(400, '/user')
+		await h.chai.post(400, '/user/signup')
 			.set('encrypted_token', 'Bearer qwdqwdqwdqwdQWFWQwfqw')
 			.send()
 		h.expect(global.response.body).to.deep.equal({
@@ -24,10 +24,10 @@ describe('User Sign Up errors', () => {
 
 	it('Missing username in encryptedToken', async () => {
 		const noUsernamePayload = { password: '12345678' }
-		const encryptedToken = await encryption.encryptJWT(null, noUsernamePayload)
+		const { token } = await encryption.encryptJWT(null, noUsernamePayload)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -37,10 +37,10 @@ describe('User Sign Up errors', () => {
 
 	it('Missing password in encryptedToken', async () => {
 		const noPasswordPayload = { username: 'Michael' }
-		const encryptedToken = await encryption.encryptJWT(null, noPasswordPayload)
+		const { token } = await encryption.encryptJWT(null, noPasswordPayload)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -50,10 +50,10 @@ describe('User Sign Up errors', () => {
 
 	it('Too short username', async () => {
 		const tooShortUsername = { username: 'te', password: '12345678' }
-		const encryptedToken = await encryption.encryptJWT(null, tooShortUsername)
+		const { token } = await encryption.encryptJWT(null, tooShortUsername)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -66,10 +66,10 @@ describe('User Sign Up errors', () => {
 			username: 'michael',
 			password: '1234567812345678123456780',
 		}
-		const encryptedToken = await encryption.encryptJWT(null, tooLongPassword)
+		const { token } = await encryption.encryptJWT(null, tooLongPassword)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -79,10 +79,10 @@ describe('User Sign Up errors', () => {
 
 	it('Already used username', async () => {
 		const alreadyUsedPayload = { username: 'teazyou', password: '12345678' }
-		const encryptedToken = await encryption.encryptJWT(null, alreadyUsedPayload)
+		const { token } = await encryption.encryptJWT(null, alreadyUsedPayload)
 
-		await h.chai.post(409, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(409, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -92,10 +92,10 @@ describe('User Sign Up errors', () => {
 
 	it('Empty username', async () => {
 		const emptyUsernamePayload = { username: '', password: '12345678' }
-		const encryptedToken = await encryption.encryptJWT(null, emptyUsernamePayload)
+		const { token } = await encryption.encryptJWT(null, emptyUsernamePayload)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({
@@ -105,10 +105,10 @@ describe('User Sign Up errors', () => {
 
 	it('Empty password', async () => {
 		const emptyPasswordPayload = { username: 'michael', password: '' }
-		const encryptedToken = await encryption.encryptJWT(null, emptyPasswordPayload)
+		const { token } = await encryption.encryptJWT(null, emptyPasswordPayload)
 
-		await h.chai.post(400, '/user')
-			.set('encrypted_token', `Bearer ${encryptedToken}`)
+		await h.chai.post(400, '/user/signup')
+			.set('encrypted_token', `Bearer ${token}`)
 			.send()
 
 		h.expect(global.response.body).to.deep.equal({

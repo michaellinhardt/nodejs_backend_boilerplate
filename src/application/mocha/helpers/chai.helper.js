@@ -1,9 +1,11 @@
 import Chai from 'chai'
 import chaiHttp from 'chai-http'
+import chaiUuid from 'chai-uuid'
 import deepEqualInAnyOrder from 'deep-equal-in-any-order'
 import { expressInstance } from '../../index'
 
 const chai = Chai.use(chaiHttp)
+chai.use(chaiUuid)
 chai.use(deepEqualInAnyOrder)
 
 let chaiAgent = chai.request.agent(expressInstance)
@@ -40,13 +42,12 @@ const listenHttpResponseAfterEmit = (req, status) =>
 const onHttpResponse = (res, status) => {
 	global.response = res
 	const { body } = res
-	const { expect } = Chai
 
-	expect(res).to.have.status(status)
+	Chai.expect(res).to.have.status(status)
 
 	if (status < 300)
-		expect(body.error_key).to.be.an('undefined')
+		Chai.expect(body.error_key).to.be.an('undefined')
 
 	else
-		expect(body.error_key).to.be.a('string')
+		Chai.expect(body.error_key).to.be.a('string')
 }
