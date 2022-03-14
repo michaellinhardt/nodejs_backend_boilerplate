@@ -62,11 +62,14 @@ export const UserController
 		this.data.user = isUser
 	}
 
-	handler () {
+	async handler () {
 		const { services: s, helpers: h } = this
-		const { password, username } = this.req.decrypted_token
+		const { user_uuid } = this.data.user
 
-		return this.renders.created()
+		const user_ip = h.ip.getClientIp(this.req)
+		await s.usersIps.saveNewUserIP(user_uuid, user_ip)
+
+		return this.renders.ok()
 	}
 },
 
